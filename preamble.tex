@@ -1,0 +1,121 @@
+\documentclass[
+  fontsize=12pt,       % Schriftgröße
+  paper=a4,            % Papierformat
+  twoside=true,        % Zweispaltiges Layout für beidseitigen Druck
+  openright,           % Kapitel beginnen auf der rechten Seite
+  ngerman,             % Neue deutsche Rechtschreibung
+  parskip=half,        % Absatzabstand
+  headsepline%,         % Linie unter der Kopfzeile
+  %footsepline          % Linie über der Fußzeile
+]{scrbook}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{breakurl}
+
+% >>> Zum Einstellen des Dokuments
+	\usepackage{lipsum}
+% <<< Zum Einstellen des Dokuments
+
+
+% >>> noch zu prüfende Pakete und Einstellungen
+	%\usepackage{framed}
+	%\usepackage{pdfpages}
+	%\usepackage{nameref}
+% <<< noch zu prüfende Pakete und Einstellungen
+
+% >>> Formatierung des Dokuments
+	\usepackage[
+		left=3cm,
+		right=4cm,
+		top=2cm,
+		bottom=2cm,
+		foot=1cm]
+			{geometry}
+	\usepackage{amssymb}
+	\usepackage{lmodern}
+	\usepackage{mathptmx}
+	\usepackage[onehalfspacing]{setspace}
+	%\usepackage[scaled]{helvet}
+	%\renewcommand\familydefault{phv}
+	\usepackage{pdflscape} % für Querformat
+% <<< Formatierung des Dokuments
+
+
+
+% >>> Eigene Formatierungen
+	\newcommand{\qq}[1]{\glqq #1\grqq} % Text in Anführungszeichen
+	\newcommand{\gq}[1]{\glq{}#1\grq{}}
+% >>> Eigene Formatierungen
+
+% >>> BibLaTeX-Zitation
+	\usepackage[babel,german=guillemets]{csquotes}	% Anführungszeichen
+%	\usepackage[%
+%		style=authoryear-comp,%
+%		isbn=false,%
+%		doi=false,%
+%		hyperref,%
+%		dashed=false]{biblatex}
+%	\bibliography{literatur}
+
+	\usepackage[%
+		style=verbose-note,%
+		isbn=false,%
+		doi=false,%
+		hyperref,%
+		dashed=false]{biblatex}
+	\bibliography{literatur}
+
+
+	%% sorgt dafür, dass bei Zitaten mit mehreren Autoren ein "\" im Text steht und im Literaturverzeichnis ein ";"
+		\renewcommand*{\multinamedelim}{\addslash}
+		\renewcommand*{\finalnamedelim}{\addslash}
+		\AtBeginBibliography{%
+			\renewcommand*{\multinamedelim}{\addslash}
+			\renewcommand*{\finalnamedelim}{\addslash}
+			\renewbibmacro*{name:andothers}{%
+				\ifthenelse{\value{listcount}=\value{liststop}\AND
+					\ifmorenames}
+				{\space et.\,al.}
+				{}}
+			}
+		\DeclareNameAlias{sortname}{last-first}
+		\DefineBibliographyStrings{ngerman}{ 
+		   andothers = {{et\,al\adddot}},             
+		}
+
+	\renewcommand*{\mkbibnamelast}[1]{\textsc{#1}}	    %Nachname des Autors in Kapitälchen
+	\renewcommand*{\labelnamepunct}{\addcolon\addspace} % Doppelpunkt nach Name in BIB
+
+	% Filter für Primär- und Sekundärliteratur
+		\DeclareBibliographyCategory{primary}
+		\DeclareBibliographyCategory{secondary}
+		\defbibheading{primary}{\section*{Primärquellen}}
+		\defbibheading{secondary}{\section*{Sekundärliteratur}}
+% <<< BibLaTeX-Zitation
+
+% >>> Abkürzungen
+
+\usepackage[
+    ngerman,                % Sprache auf Neu-Deutsch setzen
+    toc,                    % Eintrag ins Inhaltsverzeichnis
+    acronym,                % Unterstützung für Akronyme
+    nonumberlist,           % Keine Seitenzahlen im Glossar
+    style=long,             % Stil der Darstellung (verschiedene Optionen verfügbar)
+    hyperfirst=false        % Erstes Vorkommen ohne Hyperlink
+]{glossaries}
+
+\makeglossaries
+
+\newacronym{bstu}{BStU}{Der Bundesbeauftragte für die Unterlagen des Staatssicherheitsdienstes der ehemaligen Deutschen Demokratischen Republik}
+
+% <<< Abkürzungen
+
+% >>> Erstellen von Referenzen im Text
+	\usepackage{hyperref}
+	\usepackage{cleveref}
+% <<< Erstellen von Referenzen im Text
